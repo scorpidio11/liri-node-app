@@ -1,1 +1,12 @@
 spotify-this-song,"I Want it That Way"
+* New Search - undefined - undefined *
+
+That is not a valid action.
+
+* New Search - movie-this - jaws *
+
+Error: null
+
+* New Search - movie-this - jaws *
+
+Error: null
