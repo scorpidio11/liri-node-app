@@ -1,9 +1,11 @@
 require("dotenv").config();
 var keys = require("./keys.js");
 var request = require("request");
-var spotify = require('node-spotify-api');
+var Spotify = require('node-spotify-api');
+var spotify = new Spotify(keys.spotify);
+var moment = require('moment');
+moment().format();
 
-//var moment = require("moment");
 var fs = require('fs');
 
 // var arguments = process.argv.slice(2);
@@ -15,14 +17,12 @@ var secondCommand = process.argv[3];
 
 
 
-
-
 // MOVIE
 function movieCall() {
 
 
     // Grab or assemble the movie name and store it in a variable called "movieName"
-    var movieName = '';
+    var movieName = "";
     for (let i = 3; i < process.argv.length; i++) {
         movieName += " " + process.argv[i].trim();
     }
@@ -30,7 +30,14 @@ function movieCall() {
 
     var queryUrl = "http://www.omdbapi.com/?t=" + movieName.trim() + "&y=&plot=short&apikey=trilogy";
 
+if(secondCommand === undefined) {
+    console.log("\n========== Type your song or Try ==========\n");
+    console.log("If you haven't watched Mr. Nobody, then you should: \nhttp://www.imdb.com/title/tt0485947/" + "\nIt's on Netflix! ");
+    console.log("\n=============================================\n");
 
+}
+
+else{
     request(queryUrl, function (error, response, body) {
         console.log(queryUrl);
         if (!error && response.statusCode === 200) {
@@ -50,6 +57,7 @@ function movieCall() {
     });
 
 }
+}
 
 
 // Concert
@@ -68,21 +76,19 @@ function concertCall() {
     request(queryUrl, function (error, response, body) {
 
         
-        var day = JSON.parse(body)[0].datetime
+        var eventDate = JSON.parse(body)[0].datetime;
+        var concertDate = moment(eventDate).format('MM/DD/YYYY')
         
-        
-        //moment("2018-04-01T00:00:00Z").format("MMMM D, YYYY")
+      
 
         if (!error && response.statusCode === 200) {
             console.log("\n========== * Concert *  ==========\n");
-            // var datetime = moment(body[set].datetime).format("MM/DD/YYYY")
-
-            // console.log(JSON.parse(body));
+       
 
             console.log
                 ("Venue Name: " + JSON.parse(body)[0].venue.name
                 + "\nVenue location: " + JSON.parse(body)[0].venue.city
-                + "\nDate of the Event: " + JSON.parse(body)[0].datetime
+                + "\nDate of the Event: " + concertDate
 
                 );
             console.log("\n=================================\n");
@@ -94,46 +100,45 @@ function concertCall() {
 
 
 
-function spotifySong() {
 
-    var songName = '';
-    for (let i = 3; i < process.argv.length; i++) {
-        songName += " " + process.argv[i].trim();
+
+//Sopitfy 
+
+   
+    function spotifySong() {
+
+        var songName = '';
+        for (let i = 3; i < process.argv.length; i++) {
+            songName += " " + process.argv[i].trim();
+        }
+    
+        if (secondCommand === undefined) {
+            console.log("\n========== Type your song or Try ==========\n");
+            console.log("Artist: Ace of Base" + "\nSong:The Sign ");
+            console.log("\n=============================================\n");
+        } else {
+    
+    
+            //launch spotify search
+            spotify.search({ type: 'track', query: songName }, function (err, data) {
+                if (err) {
+                    console.log('Error occurred: ' + err);
+                    return;
+                } else {
+                    //tried searching for release year! Spotify doesn't return this!
+                    console.log("\n========== * Spotify *  ==========\n");
+                    console.log
+                        ("Artist: " + data.tracks.items[0].artists[0].name
+                        + "\nSong: " + data.tracks.items[0].name
+                        + "\nAlbum: " + data.tracks.items[0].album.name
+                        + "\nPreview Here: " + data.tracks.items[0].preview_url
+                        );
+                    console.log("\n=================================\n");
+                }
+            });
+        };
+
     }
-
-    if (songName === undefined) {
-        console.log("Artist: Ace of Base" + "\nSong:The Sign ");
-    } else {
-
-
-        //launch spotify search
-        spotify.search({ type: 'track', query: songName }, function (err, data) {
-            if (err) {
-                console.log('Error occurred: ' + err);
-                return;
-            } else {
-                //tried searching for release year! Spotify doesn't return this!
-                console.log
-                    ("Artist: " + data.tracks.items[0].artists[0].name
-                    + "\nSong: " + data.tracks.items[0].name
-                    + "\nAlbum: " + data.tracks.items[0].album.name
-                    + "\nPreview Here: " + data.tracks.items[0].preview_url
-                    );
-
-            }
-        });
-    };
-
-
-
-
-
-}
-
-
-
-
-
 
 function call() {
 
@@ -146,7 +151,7 @@ function call() {
             break;
 
         case "spotify-this-song":
-           spotifySong();
+        spotifySong(secondCommand);
             break;
 
         // case 'do-what-it-says':
@@ -159,10 +164,6 @@ function call() {
     }
 }
 call();
-
-
-
-
 
 
 
@@ -200,4 +201,3 @@ call();
 
 
     // }
-
