@@ -71,6 +71,8 @@ Edit the text in random.txt to test out the feature for movie-this and my-tweets
 # Video Recording
 Terminal Commands
 
+node liri.js how's stock market today?
+
 node liri.js concert-this
 node liri.js concert-this drake
 
