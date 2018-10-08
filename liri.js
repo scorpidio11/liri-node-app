@@ -12,17 +12,9 @@ moment().format();
 
 var fs = require('fs');
 
-// var arguments = process.argv.slice(2);
+
 var userCommand = process.argv[2];
 var secondCommand = process.argv[3];
-
-// for(i=4; i<process.argv.length; i++){
-//     secondCommand += '+' + process.argv[i];
-
-
-
-
-
 
 
 // =====================================================================
