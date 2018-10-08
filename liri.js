@@ -84,7 +84,7 @@ var concertCall =
 
 
         if (secondCommand === undefined) {
-            console.log("\n========== Type your band or artist name again ==========\n");
+            console.log("\n========== Type New Band Name ==========\n");
 
         }
         else {
@@ -118,10 +118,6 @@ var concertCall =
 
 
 
-//Sopitfy Function
-// var getArtistNames = function(artis){
-//     return artist.name;
-// }
 var spotifySong =
     function (songName) {
 

@@ -69,6 +69,9 @@ Edit the text in random.txt to test out the feature for movie-this and my-tweets
 
 
 # Video Recording
+
+https://youtu.be/6N5VnKXMako
+
 Terminal Commands
 
 node liri.js how's stock market today?
