@@ -74,15 +74,14 @@ https://youtu.be/6N5VnKXMako
 
 Terminal Commands
 
-node liri.js how's stock market today?
+node liri.js spotify-this-song 
+node liri.js spotify-this-song  take on me
 
 node liri.js concert-this
 node liri.js concert-this drake
-
-node liri.js spotify-this-song 
-node liri.js spotify-this-song open arms
 
 node liri.js movie-this
 node liri.js movie-this star wars
 
 node liri.js do-what-it-says
+node liri.js  asdfadsfadsasfd
