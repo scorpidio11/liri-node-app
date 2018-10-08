@@ -18,7 +18,7 @@ spotify-this-song
 movie-this
 do-what-it-says
 
-=========================================================================================
+===================================================================================
 1.node liri.js concert-this <artist/band name here>
 
 This will search the Bands in Town Artist Events API for an artist and render the following information about each event to the terminal:
@@ -27,7 +27,7 @@ This will search the Bands in Town Artist Events API for an artist and render th
 * Venue location
 * Date of the Event (use moment to format this as "MM/DD/YYYY")
 
-=========================================================================================
+===================================================================================
 2.node liri.js spotify-this-song '<song name here>'
 
 This will show the following information about the song in the terminal/bash window
@@ -37,7 +37,7 @@ This will show the following information about the song in the terminal/bash win
 * A preview link of the song from Spotify
 * The album that the song is from
 If no song is provided then program will default to "The Sign" by Ace of Base.
-=========================================================================================
+===================================================================================
 
 3.node liri.js movie-this '<movie name here>'
 This will output the following information to the terminal/bash window:
@@ -56,7 +56,7 @@ If the user doesn't type a movie in, the program will output data for the movie 
 If you haven't watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/
 It's on Netflix!
 
-=========================================================================================
+===================================================================================
 
 4.node liri.js do-what-it-says
 
