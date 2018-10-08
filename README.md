@@ -11,7 +11,7 @@ It utilizes four Node packages:
 The OMDB and Bands in Town are accessed using the Node package Request.
 
 
-========================================================================================
+
 # 4 Commands
 
 concert-this
