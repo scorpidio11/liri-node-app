@@ -127,38 +127,41 @@ function () {
 
 
 //Sopitfy Function
-
+// var getArtistNames = function(artis){
+//     return artist.name;
+// }
 var spotifySong =
 function (songName) {
 
-    // var songName = '';
-    // for (let i = 3; i < process.argv.length; i++) {
-    //     songName += " " + process.argv[i].trim();
-    // }
+    var songName = '';
+    for (let i = 3; i < process.argv.length; i++) {
+        songName += " " + process.argv[i].trim();
+    }
 
     if (songName === undefined) {
-        console.log("\n========== Type your song or Try ============\n");
+        console.log("\n========== Type a New Song or Try ============\n");
         console.log("Artist: Ace of Base" + "\nSong:The Sign ");
         console.log("\n=============================================\n");
     } else {
 
 
         //launch spotify search
-        spotify.search({ type: 'track', query: songName }, function (err, data) {
+        spotify.search({ type: 'track', query: songName }, function (err, data) 
+        {
             if (err) {
                 console.log('Error occurred: ' + err);
                 return;
-            } else {
+            } 
                 //tried searching for release year! Spotify doesn't return this!
-                console.log("\n=========== * Spotify *  ===========\n");
+                console.log("\n=============== * Spotify *  ===============\n");
                 console.log
                     ("Artist: " + data.tracks.items[0].artists[0].name
-                    + "\nSong: " + data.tracks.items[0].name
+                    + "\nSong Title: " + data.tracks.items[0].name
                     + "\nAlbum: " + data.tracks.items[0].album.name
                     + "\nPreview Here: " + data.tracks.items[0].preview_url
                     );
-                console.log("\n=================================\n");
-            }
+                    console.log("\n============================================\n");
+           
         });
     };
 

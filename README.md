@@ -69,3 +69,15 @@ Edit the text in random.txt to test out the feature for movie-this and my-tweets
 
 
 # Video Recording
+Terminal Commands
+
+node liri.js concert-this
+node liri.js concert-this drake
+
+node liri.js spotify-this-song 
+node liri.js spotify-this-song open arms
+
+node liri.js movie-this
+node liri.js movie-this star wars
+
+node liri.js do-what-it-says
