@@ -133,10 +133,7 @@ var concertCall =
             });
         }
     }
-
-
-
-
+//Spoitify Function
 
 var spotifySong =
     function (songName) {
