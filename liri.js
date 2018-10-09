@@ -13,8 +13,8 @@ moment().format();
 var fs = require('fs');
 
 
-var userCommand = process.argv[2];
-var secondCommand = process.argv[3];
+var command = process.argv[2];
+var userCommand = process.argv[3];
 
 
 // =====================================================================
@@ -37,7 +37,7 @@ var movieCall =
 
         var queryUrl = "http://www.omdbapi.com/?t=" + movieName.trim() + "&y=&plot=short&apikey=trilogy";
 
-        if (secondCommand === undefined) {
+        if (userCommand === undefined) {
             console.log("\n========== Type New Movie or Try ==========\n");
             console.log("If you haven't watched Mr. Nobody, then you should: \nhttp://www.imdb.com/title/tt0485947/" + "\nIt's on Netflix! ");
             console.log("\n=============================================\n");
@@ -75,35 +75,28 @@ var concertCall =
 
 
         var nodeArgs = process.argv;
-        var artist = '';
+        var band = '';
 
         for (var i = 3; i < nodeArgs.length; i++) {
 
             if (i > 3 && i < nodeArgs.length) {
 
-                artist = artist + "+" + nodeArgs[i];
+                band = band + "+" + nodeArgs[i];
 
             }
 
             else {
 
-                artist += nodeArgs[i];
+                band += nodeArgs[i];
 
             }
         }
 
 
-
-        var artist = "";
-        for (let i = 3; i < process.argv.length; i++) {
-            artist += " " + process.argv[i].trim();
-        }
-
-        // Include the request npm package (run "npm install request" in this folder first!)
-        var queryUrl = "https://rest.bandsintown.com/artists/" + artist.trim() + "/events?app_id=codingbootcamp";
+        var queryUrl = "https://rest.bandsintown.com/artists/" + band.trim() + "/events?app_id=codingbootcamp";
 
 
-        if (secondCommand === undefined) {
+        if (userCommand === undefined) {
             console.log("\n========== Type New Band Name ==========\n");
 
         }
@@ -133,7 +126,7 @@ var concertCall =
             });
         }
     }
-//Spoitify Function
+//Spotify Function
 
 var spotifySong =
     function (songName) {
@@ -142,14 +135,44 @@ var spotifySong =
             console.log("\n========== Type a New Song or Try ============\n");
             console.log("Artist: Ace of Base" + "\nSong:The Sign ");
             console.log("\n===============================================\n");
-        } else {
+        }
 
-            //     var songName= '';
-            // for (let i = 3; i < process.argv.length; i++) {
-            //     songName += " " + process.argv[i].trim();
-            // }
+        if (songName === userCommand) {
+            let nodeArgs = process.argv;
+            let songName = '';
+            for (let i = 2; i < nodeArgs.length; i++) {
+                if (i > 3 && i < nodeArgs.length) {
+                    songName = songName + "+" + nodeArgs[i];
+                }
+            }
+
+            var spotSearch = function (){
+            spotify.search({ type: 'track', query: songName }, function (err, data) {
+                if (err) {
+                    console.log('Error occurred: ' + err);
+                    return;
+                }
 
 
+                console.log("\n=============== * Spotify *  ===============\n");
+                console.log
+                    ("Artist: " + data.tracks.items[0].artists[0].name
+                    + "\nSong Title: " + data.tracks.items[0].name
+                    + "\nAlbum: " + data.tracks.items[0].album.name
+                    + "\nPreview Here: " + data.tracks.items[0].preview_url
+                    );
+
+                console.log("\n============================================\n");
+
+            }); }
+
+            spotSearch ();
+
+
+        }
+
+
+        else {
 
             //launch spotify search
             spotify.search({ type: 'track', query: songName }, function (err, data) {
@@ -157,7 +180,7 @@ var spotifySong =
                     console.log('Error occurred: ' + err);
                     return;
                 }
-             
+
 
                 console.log("\n=============== * Spotify *  ===============\n");
                 console.log
@@ -199,18 +222,18 @@ var doWhat =
 // Run the main function with the initial action and data
 // =====================================================================
 
-var call = function (userCommand, secondCommand) {
+var call = function (command, userCommand) {
 
-    switch (userCommand) {
+    switch (command) {
         case "movie-this":
-            movieCall(secondCommand);
+            movieCall(userCommand);
             break;
         case "concert-this":
             concertCall();
             break;
 
         case "spotify-this-song":
-            spotifySong(secondCommand);
+            spotifySong(userCommand);
             break;
 
         case 'do-what-it-says':
@@ -223,8 +246,8 @@ var call = function (userCommand, secondCommand) {
     }
 }
 
-var runThis = function (userCommand, secondCommand) {
-    call(userCommand, secondCommand);
+var runThis = function (command, userCommand) {
+    call(command, userCommand);
 
 }
-runThis(userCommand, secondCommand);
+runThis(command, userCommand);
