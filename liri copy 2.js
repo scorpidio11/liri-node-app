@@ -94,10 +94,10 @@ var concertCall =
 
 
 
-        var artist = "";
-        for (let i = 3; i < process.argv.length; i++) {
-            artist += " " + process.argv[i].trim();
-        }
+        // var artist = "";
+        // for (let i = 3; i < process.argv.length; i++) {
+        //     artist += " " + process.argv[i].trim();
+        // }
 
         // Include the request npm package (run "npm install request" in this folder first!)
         var queryUrl = "https://rest.bandsintown.com/artists/" + artist.trim() + "/events?app_id=codingbootcamp";
@@ -141,17 +141,32 @@ var concertCall =
 var spotifySong =
     function (songName) {
 
+
+
+
         if (songName === undefined) {
             console.log("\n========== Type a New Song or Try ============\n");
             console.log("Artist: Ace of Base" + "\nSong:The Sign ");
             console.log("\n===============================================\n");
         } else {
 
-            //     var songName= '';
-            // for (let i = 3; i < process.argv.length; i++) {
-            //     songName += " " + process.argv[i].trim();
-            // }
+            var nodeArgs = process.argv;
+            var songName = '';
 
+            for (var i = 2; i < nodeArgs.length; i++) {
+
+                if (i > 2 && i < nodeArgs.length) {
+
+                    songName = songName + "+" + nodeArgs[i];
+
+                }
+
+                else {
+
+                    songName += nodeArgs[i];
+
+                }
+            }
 
 
             //launch spotify search
@@ -226,8 +241,8 @@ var call = function (userCommand, secondCommand) {
     }
 }
 
-var runThis = function (userCommand, secondCommand) {
-    call(userCommand, secondCommand);
+var runThis = function (argOne, argTwo) {
+    call(argOne, argTwo);
 
 }
-runThis(userCommand, secondCommand);
+runThis(process.argv[2], process.argv[3]);
