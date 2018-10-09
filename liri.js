@@ -41,7 +41,7 @@ var movieCall =
             console.log("\n========== Type New Movie or Try ==========\n");
             console.log("If you haven't watched Mr. Nobody, then you should: \nhttp://www.imdb.com/title/tt0485947/" + "\nIt's on Netflix! ");
             console.log("\n=============================================\n");
-
+          
         }
 
         else {
@@ -78,15 +78,10 @@ var concertCall =
         var band = '';
 
         for (var i = 3; i < nodeArgs.length; i++) {
-
             if (i > 3 && i < nodeArgs.length) {
-
                 band = band + "+" + nodeArgs[i];
-
             }
-
             else {
-
                 band += nodeArgs[i];
 
             }
@@ -135,6 +130,7 @@ var spotifySong =
             console.log("\n========== Type a New Song or Try ============\n");
             console.log("Artist: Ace of Base" + "\nSong:The Sign ");
             console.log("\n===============================================\n");
+            return;
         }
 
         if (songName === userCommand) {
