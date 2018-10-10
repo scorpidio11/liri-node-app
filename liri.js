@@ -41,7 +41,7 @@ var movieCall =
             console.log("\n========== Type New Movie or Try ==========\n");
             console.log("If you haven't watched Mr. Nobody, then you should: \nhttp://www.imdb.com/title/tt0485947/" + "\nIt's on Netflix! ");
             console.log("\n=============================================\n");
-          
+
         }
 
         else {
@@ -87,7 +87,6 @@ var concertCall =
             }
         }
 
-
         var queryUrl = "https://rest.bandsintown.com/artists/" + band.trim() + "/events?app_id=codingbootcamp";
 
 
@@ -126,6 +125,7 @@ var concertCall =
 var spotifySong =
     function (songName) {
 
+        //When Input is Empty
         if (songName === undefined) {
             console.log("\n========== Type a New Song or Try ============\n");
             console.log("Artist: Ace of Base" + "\nSong:The Sign ");
@@ -133,44 +133,7 @@ var spotifySong =
             return;
         }
 
-        if (songName === userCommand) {
-            let nodeArgs = process.argv;
-            let songName = '';
-            for (let i = 2; i < nodeArgs.length; i++) {
-                if (i > 3 && i < nodeArgs.length) {
-                    songName = songName + "+" + nodeArgs[i];
-                }
-            }
-
-            var spotSearch = function (){
-            spotify.search({ type: 'track', query: songName }, function (err, data) {
-                if (err) {
-                    console.log('Error occurred: ' + err);
-                    return;
-                }
-
-
-                console.log("\n=============== * Spotify *  ===============\n");
-                console.log
-                    ("Artist: " + data.tracks.items[0].artists[0].name
-                    + "\nSong Title: " + data.tracks.items[0].name
-                    + "\nAlbum: " + data.tracks.items[0].album.name
-                    + "\nPreview Here: " + data.tracks.items[0].preview_url
-                    );
-
-                console.log("\n============================================\n");
-
-            }); }
-
-            spotSearch ();
-
-
-        }
-
-
-        else {
-
-            //launch spotify search
+        var spotSearch = function () {
             spotify.search({ type: 'track', query: songName }, function (err, data) {
                 if (err) {
                     console.log('Error occurred: ' + err);
@@ -189,6 +152,32 @@ var spotifySong =
                 console.log("\n============================================\n");
 
             });
+        }
+
+        
+        //When user type song name
+        if (songName === userCommand) {
+            let nodeArgs = process.argv;
+            let songName = '';
+            for (let i = 2; i < nodeArgs.length; i++) {
+                if (i > 3 && i < nodeArgs.length) {
+                    songName = songName + "+" + nodeArgs[i];
+                }
+            }
+
+
+
+         
+
+            spotSearch();
+
+        }
+
+        //When input is from ramdom text (do-what-it-says)
+        else {
+
+            spotSearch();
+
         };
 
     }
