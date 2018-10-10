@@ -2,11 +2,15 @@
 // =====================================================================
 // Requires
 // =====================================================================
+
+
 require("dotenv").config();
+
 var keys = require("./keys.js");
 var request = require("request");
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
+
 var moment = require('moment');
 moment().format();
 
@@ -22,7 +26,10 @@ var userCommand = process.argv[3];
 // =====================================================================
 
 
-// MOVIE Call Function
+
+// 1.MOVIE Call Function
+// =====================================================================
+
 
 var movieCall =
     function () {
@@ -67,12 +74,12 @@ var movieCall =
     }
 
 
-// Concert Call Function
+// 2.Concert Call Function
+// =====================================================================
 
 var concertCall =
 
     function () {
-
 
         var nodeArgs = process.argv;
         var band = '';
@@ -83,30 +90,23 @@ var concertCall =
             }
             else {
                 band += nodeArgs[i];
-
             }
         }
 
         var queryUrl = "https://rest.bandsintown.com/artists/" + band.trim() + "/events?app_id=codingbootcamp";
 
-
         if (userCommand === undefined) {
             console.log("\n========== Type New Band Name ==========\n");
-
         }
         else {
             // console.log(queryUrl);
             request(queryUrl, function (error, response, body) {
 
-
                 var eventDate = JSON.parse(body)[0].datetime;
                 var concertDate = moment(eventDate).format('MM/DD/YYYY')
 
-
-
                 if (!error && response.statusCode === 200) {
                     console.log("\n=========== * Concert *  ===========\n");
-
 
                     console.log
                         ("Venue Name: " + JSON.parse(body)[0].venue.name
@@ -120,7 +120,10 @@ var concertCall =
             });
         }
     }
-//Spotify Function
+
+
+// 3.Spotify Function
+// =====================================================================
 
 var spotifySong =
     function (songName) {
@@ -141,7 +144,7 @@ var spotifySong =
                 if (i > 3 && i < nodeArgs.length) {
                     songName = songName + "+" + nodeArgs[i];
                 }
-            }  
+            }
             spotify.search({ type: 'track', query: songName }, function (err, data) {
                 if (err) {
                     console.log('Error occurred: ' + err);
@@ -149,14 +152,14 @@ var spotifySong =
                 }
                 console.log(
                     "\n=============== * Spotify *  ===============\n"
-                        +"Artist: " + data.tracks.items[0].artists[0].name
-                        + "\nSong Title: " + data.tracks.items[0].name
-                        + "\nAlbum: " + data.tracks.items[0].album.name
-                        + "\nPreview Here: " + data.tracks.items[0].preview_url
-                        +"\n============================================\n")
+                    + "Artist: " + data.tracks.items[0].artists[0].name
+                    + "\nSong Title: " + data.tracks.items[0].name
+                    + "\nAlbum: " + data.tracks.items[0].album.name
+                    + "\nPreview Here: " + data.tracks.items[0].preview_url
+                    + "\n============================================\n")
             });
-      
-            
+
+
         }
         //When input is from ramdom text (do-what-it-says)
         else {
@@ -167,23 +170,22 @@ var spotifySong =
                     return;
                 }
                 console.log(
-                "\n=============== * Spotify *  ===============\n"
-                    +"Artist: " + data.tracks.items[0].artists[0].name
+                    "\n=============== * Spotify *  ===============\n"
+                    + "Artist: " + data.tracks.items[0].artists[0].name
                     + "\nSong Title: " + data.tracks.items[0].name
                     + "\nAlbum: " + data.tracks.items[0].album.name
                     + "\nPreview Here: " + data.tracks.items[0].preview_url
-                    +"\n============================================\n")
+                    + "\n============================================\n")
             });
-      
-         
+
+
         };
 
     }
+//4.Do What it Says Function
+// =====================================================================
 
 
-
-
-//Do What it Says Function
 var doWhat =
     function () {
         // App functionality from file read / loads fs npm package
@@ -201,6 +203,7 @@ var doWhat =
 
     }
 
+    
 // =====================================================================
 // Run the main function with the initial action and data
 // =====================================================================
@@ -229,8 +232,4 @@ var call = function (command, userCommand) {
     }
 }
 
-var runThis = function (command, userCommand) {
-    call(command, userCommand);
-
-}
-runThis(command, userCommand);
+call(command, userCommand);
