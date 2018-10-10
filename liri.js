@@ -133,28 +133,6 @@ var spotifySong =
             return;
         }
 
-        var spotSearch = function () {
-            spotify.search({ type: 'track', query: songName }, function (err, data) {
-                if (err) {
-                    console.log('Error occurred: ' + err);
-                    return;
-                }
-
-
-                console.log("\n=============== * Spotify *  ===============\n");
-                console.log
-                    ("Artist: " + data.tracks.items[0].artists[0].name
-                    + "\nSong Title: " + data.tracks.items[0].name
-                    + "\nAlbum: " + data.tracks.items[0].album.name
-                    + "\nPreview Here: " + data.tracks.items[0].preview_url
-                    );
-
-                console.log("\n============================================\n");
-
-            });
-        }
-
-        
         //When user type song name
         if (songName === userCommand) {
             let nodeArgs = process.argv;
@@ -163,21 +141,41 @@ var spotifySong =
                 if (i > 3 && i < nodeArgs.length) {
                     songName = songName + "+" + nodeArgs[i];
                 }
-            }
-
-
-
-         
-
-            spotSearch();
-
+            }  
+            spotify.search({ type: 'track', query: songName }, function (err, data) {
+                if (err) {
+                    console.log('Error occurred: ' + err);
+                    return;
+                }
+                console.log(
+                    "\n=============== * Spotify *  ===============\n"
+                        +"Artist: " + data.tracks.items[0].artists[0].name
+                        + "\nSong Title: " + data.tracks.items[0].name
+                        + "\nAlbum: " + data.tracks.items[0].album.name
+                        + "\nPreview Here: " + data.tracks.items[0].preview_url
+                        +"\n============================================\n")
+            });
+      
+            
         }
-
         //When input is from ramdom text (do-what-it-says)
         else {
 
-            spotSearch();
-
+            spotify.search({ type: 'track', query: songName }, function (err, data) {
+                if (err) {
+                    console.log('Error occurred: ' + err);
+                    return;
+                }
+                console.log(
+                "\n=============== * Spotify *  ===============\n"
+                    +"Artist: " + data.tracks.items[0].artists[0].name
+                    + "\nSong Title: " + data.tracks.items[0].name
+                    + "\nAlbum: " + data.tracks.items[0].album.name
+                    + "\nPreview Here: " + data.tracks.items[0].preview_url
+                    +"\n============================================\n")
+            });
+      
+         
         };
 
     }
